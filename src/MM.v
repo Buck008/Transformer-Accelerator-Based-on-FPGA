@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-//计划将axi stream 的位宽设置为 128bits
+
 //array_m 和 array_n 现必须保持为一致
 module MM
 #(
