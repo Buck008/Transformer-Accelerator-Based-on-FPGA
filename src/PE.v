@@ -4,7 +4,7 @@ module PE
 #(
     parameter data_width = 8,           //数据宽度
     parameter array_m = 16,             //Array 行数
-    parameter array_n = 16,             //Array 列数
+    parameter array_n = 16,             //Array 列数 
     parameter log2_array_m = 4
 )
 (

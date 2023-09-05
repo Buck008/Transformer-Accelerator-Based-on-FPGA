@@ -2,7 +2,7 @@
 
 `define A_size 16
 `define DATA_WIDTH 8
-`define SHIFT_WIDTH 10
+`define SHIFT_WIDTH 10 
 `define IN_Feature_Block_num 2400
 `define Weight_Block_num 2400
 `define OUT_Feature_Block_num 2400
