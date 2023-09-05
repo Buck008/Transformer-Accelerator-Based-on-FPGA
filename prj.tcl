@@ -7,7 +7,7 @@
 # IP Integrator Tcl commands easier.
 ################################################################
 
-namespace eval _tcl {
+namespace eval _tcl { 
 proc get_script_folder {} {
    set script_path [file normalize [info script]]
    set script_folder [file dirname $script_path]
