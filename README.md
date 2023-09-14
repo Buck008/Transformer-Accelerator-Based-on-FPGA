@@ -1,6 +1,6 @@
 # FPGA-Based Weight-Fixed Systolic Array for Matrix Multiplication
 You can run it on pynq z1 (or any other Zynq device, since the systolic array is parameterized). The repository contains the relevant Verilog code, Vivado configuration and C/Python code for sdk/PYNQ testing. The size of the systolic array can be changed, now it is 24X24.
-In the future, I might add some nonlinear hardware acceleration operators (for accelerating ViT), such as those that compute Softmax, Gelu and LayerNorm functions. I am still working on to improve the accuracy and performance of this part.
+In the future, I might add some nonlinear hardware acceleration operators (for accelerating ViT, it's a kind of neural network based on Transformer), such as those that compute Softmax, Gelu and LayerNorm functions. I am still working on to improve the accuracy and performance of this part.
 
 How to reproduce this project: 
 1. In vivado2019.1, create a new project (note that the boardfile is pynq z1, you can download the corresponding boardfile here: https://github.com/Digilent/vivado-boards ).
