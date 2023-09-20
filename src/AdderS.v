@@ -9,7 +9,7 @@ module AdderS
     input  [A_size * data_width - 1 : 0] B,
     output reg [A_size * data_width - 1 : 0] C
 );
-wire [(data_width + 1)-1:0] temp [A_size-1:0]; //双符号位判断正溢还是负溢
+wire [(data_width + 1)-1:0] temp [A_size-1:0]; //Double sign bit to determine positive overflow or negative overflow
 wire [data_width - 1:0] C_array_display [A_size-1:0];
 genvar i;
 
@@ -29,8 +29,8 @@ generate
     for(i=0;i<A_size;i=i+1)begin
         always @(*) begin
             case (temp[i][data_width:data_width-1])
-                2'b01: C[i * data_width +: data_width] = {1'b0,{(data_width-1){1'b1}}};   //正溢
-                2'b10: C[i * data_width +: data_width] = {1'b1,{(data_width-1){1'b0}}};   //负溢
+                2'b01: C[i * data_width +: data_width] = {1'b0,{(data_width-1){1'b1}}};   
+                2'b10: C[i * data_width +: data_width] = {1'b1,{(data_width-1){1'b0}}};   
                 default: C[i * data_width +: data_width] = temp[i][data_width-1:0];
             endcase
          

@@ -34,7 +34,7 @@ DATA_TYPE mat_getValue(matrix A, int row, int col){
     return *(A.ddrAddr + row * A.num_of_cols + col);
 }
 
-void mat_set(matrix_Ptr A_p, void * addr, int num_of_rows, int num_of_cols){ //注意内存泄漏
+void mat_set(matrix_Ptr A_p, void * addr, int num_of_rows, int num_of_cols){ 
     int size = num_of_cols * num_of_rows * sizeof(DATA_TYPE);
     free(A_p->ddrAddr);
     A_p->ddrAddr = (DATA_TYPE *) malloc(size);
@@ -67,7 +67,7 @@ void mat_mul(matrix A, matrix B, matrix C, int R_shift){ //A * B = C
             }
 //            printf("temp: %d\n",temp);
             if(R_shift > 0){
-            	temp = (temp+(1<<(R_shift-1))) >> R_shift; //四舍五入
+            	temp = (temp+(1<<(R_shift-1))) >> R_shift; 
             }
 
             if (temp > MAX_LIMIT){

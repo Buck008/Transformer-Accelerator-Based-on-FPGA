@@ -4,16 +4,16 @@
 module MM_ultra_axi #
 (
 	// Users to add parameters here
-    parameter integer     array_size=24,                                      //决定了SA的边长，即大小
-    parameter integer     data_width=8,                                       //决定了量化的数据位宽
-    parameter integer     shift_width=5,                                      //决定了移位器移位变量的位宽
-    parameter integer     Weight_block_num=2500,                              //决定了IN_BUFFER里面weight_buffer_block的数量 一个block包含A_size个数据,数据位宽 data_width
-    parameter integer     in_feature_Block_num=2500,                          //决定了IN_BUFFER里面feature_buffer_block的数量 一个block包含A_size个数据,数据位宽 data_width
-    parameter integer     out_feature_block_num=2500,                         //决定了OUT_BUFFER里面feature_buffer_block的数量 一个block包含A_size个数据,数据位宽OUT_MEM_WIDTH
-    parameter integer     out_mem_width=32,                                   //决定了OUT_BUFFER的数据位宽
-    parameter integer     feature_length_width=10,                            //决定了F_length寄存器位宽以及MM_buffer里面bram大小
-    parameter integer     feature_width_block_num_width=5,                    //决定了F_width_block_num寄存器位宽
-    parameter integer     weight_width_block_num_width=5,                     //决定了W_width_block_num寄存器位宽以及MM_buffer里面bram大小
+    parameter integer     array_size=24,                                      
+    parameter integer     data_width=8,                                       
+    parameter integer     shift_width=5,                                      
+    parameter integer     Weight_block_num=2500,                              
+    parameter integer     in_feature_Block_num=2500,                          
+    parameter integer     out_feature_block_num=2500,                         
+    parameter integer     out_mem_width=32,                                   
+    parameter integer     feature_length_width=10,                            
+    parameter integer     feature_width_block_num_width=5,                    
+    parameter integer     weight_width_block_num_width=5,                     
                    
 	// User parameters ends
 	// Do not modify the parameters beyond this line

@@ -81,19 +81,19 @@ for(a=0;a<times;a++){
 
 	//先打开接受通道
 	Xil_Out32(RESULT_S2MM_DMACR, 0x4);//reset
-	Xil_Out32(RESULT_S2MM_DA, (u32)feature_out_buffer); //设置地址
-	Xil_Out32(RESULT_S2MM_DMACR, 0x1);  //打开通道
-	Xil_Out32(RESULT_S2MM_LENGTH,feature_out_size); //设置接受长度
+	Xil_Out32(RESULT_S2MM_DA, (u32)feature_out_buffer);
+	Xil_Out32(RESULT_S2MM_DMACR, 0x1); 
+	Xil_Out32(RESULT_S2MM_LENGTH,feature_out_size); 
 
 	Xil_Out32(WEIGHT_MM2S_DMACR, 0x4);//reset
-	Xil_Out32(WEIGHT_MM2S_SA, (u32)weight_buffer); //设置地址
-	Xil_Out32(WEIGHT_MM2S_DMACR, 0x1);  //打开通道
-	Xil_Out32(WEIGHT_MM2S_LENGTH,weight_size); //设置传递长度
+	Xil_Out32(WEIGHT_MM2S_SA, (u32)weight_buffer); 
+	Xil_Out32(WEIGHT_MM2S_DMACR, 0x1);  
+	Xil_Out32(WEIGHT_MM2S_LENGTH,weight_size); 
 
 	Xil_Out32(FEATURE_MM2S_DMACR, 0x4);//reset
-	Xil_Out32(FEATURE_MM2S_SA, (u32)feature_in_buffer); //设置地址
-	Xil_Out32(FEATURE_MM2S_DMACR, 0x1);  //打开通道
-	Xil_Out32(FEATURE_MM2S_LENGTH,feature_in_size); //设置传递长度
+	Xil_Out32(FEATURE_MM2S_SA, (u32)feature_in_buffer); 
+	Xil_Out32(FEATURE_MM2S_DMACR, 0x1);  
+	Xil_Out32(FEATURE_MM2S_LENGTH,feature_in_size); 
 
 
 	while((Xil_In32(RESULT_S2MM_DMASR) & XAXIDMA_IDLE_MASK) ? FALSE : TRUE){
@@ -131,12 +131,11 @@ for(a=0;a<times;a++){
 		}
 	}
 #endif
-	printf("分配内存消耗时间：%.2fus\n",T_allocBuffer);
-	printf("硬件计算消耗时间：%.2fus\n",T_hard);
+	printf("Time consumed for allocating memory: %.2fus\n",T_allocBuffer);
+	printf("Time consumed in PL cal: %.2fus\n",T_hard);
 #if CAL_SOFT
-	printf("软件计算消耗时间：%.2fus\n",T_soft);
+	printf("Time consumed in PS cal: %.2fus\n",T_soft);
 #endif
-//	printf("内存reshape消耗时间：%.2fus\n",T_reshapeBuffer);
 	free(weight_buffer);
 	free(feature_in_buffer);
 	free(feature_out_buffer);

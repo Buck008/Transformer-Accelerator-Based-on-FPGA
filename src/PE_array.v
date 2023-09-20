@@ -19,12 +19,12 @@ input wire clk;
 input wire rst_n;
 input wire set_w;
 input [data_width*array_m-1:0]                     x_packed;
-input [array_m*array_n*data_width-1:0]             w_packed; //阵列weight
+input [array_m*array_n*data_width-1:0]             w_packed; 
 output [array_n*(log2_array_m+data_width*2)-1:0]   PE_out_packed;
 
 wire [array_n*data_width-1:0] w_line_array [array_m-1:0];
 wire [array_n*(log2_array_m+data_width*2)-1:0] psum_in_packed_array [array_m:0];
-//这个数组中的每一个元素是每一行阵列的psum_in_packed，注意它比阵列行数多了一行，因为那是最后一行的输出
+
 wire [data_width-1:0] x_array [array_m-1:0];
 
 //assign PE_out_packed = psum_in_packed_array[array_m];
@@ -58,7 +58,7 @@ generate
         end
     end
 endgenerate
-assign psum_in_packed_array[0] = 0;//第一行的psum_in为0
+assign psum_in_packed_array[0] = 0;
 
 
 generate

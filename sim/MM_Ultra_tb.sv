@@ -87,17 +87,17 @@ genvar i,j;
 
 MM_ultra
 #(
-    .A_size(`A_size),                                                   //决定了SA的边长，即大小
-    .data_width(`DATA_WIDTH),                                           //决定了量化的数据位宽
-    .shift_width(`SHIFT_WIDTH),                                         //决定了移位器移位变量的位宽
-    .Weight_Block_num(`Weight_Block_num),                               //决定了IN_BUFFER里面weight_buffer_block的数量 一个block包含A_size个数据,数据位宽 data_width
-    .IN_Feature_Block_num(`IN_Feature_Block_num),                       //决定了IN_BUFFER里面feature_buffer_block的数量 一个block包含A_size个数据,数据位宽 data_width
-    .OUT_Feature_Block_num(`OUT_Feature_Block_num),                     //决定了OUT_BUFFER里面feature_buffer_block的数量 一个block包含A_size个数据,数据位宽OUT_MEM_WIDTH
-    .OUT_MEM_WIDTH(`OUT_MEM_WIDTH),                                     //决定了OUT_BUFFER的数据位宽
-    .F_length_width(`F_length_width),                                   //决定了F_length寄存器位宽以及MM_buffer里面bram大小
-    .F_width_block_num_width(`F_width_block_num_width),                 //决定了F_width_block_num寄存器位宽
-    .W_width_block_num_width(`W_width_block_num_width)                  //决定了W_width_block_num寄存器位宽以及MM_buffer里面bram大小
-                                                                        //F_length和W_width_block_num会有相乘，注意时序
+    .A_size(`A_size),                                                   //Determines the side length of SA, that is, the size
+    .data_width(`DATA_WIDTH),                                           //Determines the quantized data bit width
+    .shift_width(`SHIFT_WIDTH),                                         //Determines the bit width of the shifter shift variable
+    .Weight_Block_num(`Weight_Block_num),                               //Determines the number of weight_buffer_blocks in the IN_BUFFER.
+    .IN_Feature_Block_num(`IN_Feature_Block_num),                       //Determines the number of feature_buffer_blocks in the IN_BUFFER.
+    .OUT_Feature_Block_num(`OUT_Feature_Block_num),                     //Determines the number of feature_buffer_blocks in the OUT_BUFFER.
+    .OUT_MEM_WIDTH(`OUT_MEM_WIDTH),                                     //Determines the data bit width of the OUT_BUFFER
+    .F_length_width(`F_length_width),                                   //Determines the bit width of the F_length register and the bram size in the MM_buffer
+    .F_width_block_num_width(`F_width_block_num_width),                 
+    .W_width_block_num_width(`W_width_block_num_width)                  
+                                                                        //F length and W width block num will be multiplied. Notice the timing
 )u_MM_ultra(
     .clk(clk),
     .rst_n(rst_n),

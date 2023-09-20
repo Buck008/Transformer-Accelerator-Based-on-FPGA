@@ -2,7 +2,7 @@
 module lin(
 	input  wire				  clk, 
     input  wire signed [11:0] x_in_L_2Q9,
-    output reg  signed [8:0]  L_1Q7 //L范围从-1到1 
+    output reg  signed [8:0]  L_1Q7 
 );
 
 wire signed [9:0] x_in_L_2Q7 = x_in_L_2Q9[11:2];

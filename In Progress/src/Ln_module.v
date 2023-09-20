@@ -1,14 +1,14 @@
-`timescale 1ns / 1ps //纯组合逻辑
+`timescale 1ns / 1ps 
 module Ln_module(//latency=2
 	input clk,
-    input [15:0]    x_U8Q8,    //无符号数，一定大于1，所以w不用考虑小于0的情况
-    output [12:0]   y_U3Q10    //无符号数，但是一定大于0
+    input [15:0]    x_U8Q8,    
+    output [12:0]   y_U3Q10    
 );
 
-reg [2:0] w; //无符号数
-//无符号数,k-1
+reg [2:0] w; 
+
 reg [14:0] k_1_0Q15;
-//x一定大于1,所以不用考虑x小于1的情况
+
 
 
 always @(*) begin
@@ -46,7 +46,7 @@ always @(*) begin
     end
 end
 
-//无符号数，k-1+w
+
 wire [17:0] k_1_w_3Q15 = {w,k_1_0Q15};
 reg  [17:0] k_1_w_3Q15_reg1;
 always@(posedge clk)begin
@@ -54,7 +54,7 @@ always@(posedge clk)begin
 end
 wire [21:0] P_3Q19;
 reg  [21:0] P_3Q19_reg1;
-assign P_3Q19 = k_1_w_3Q15_reg1 * 4'b1011; // 11/16 约为 ln2
+assign P_3Q19 = k_1_w_3Q15_reg1 * 4'b1011; 
 always@(posedge clk)begin
 	P_3Q19_reg1<=P_3Q19;
 end

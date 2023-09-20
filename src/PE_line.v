@@ -2,8 +2,8 @@
 
 module PE_line
 #(
-    parameter array_m = 4, //Array 行数
-    parameter array_n = 4, //Array 列数
+    parameter array_m = 4, 
+    parameter array_n = 4, 
     parameter data_width = 8,
     parameter log2_array_m = 2
 )
@@ -20,7 +20,7 @@ module PE_line
 wire [2*data_width+log2_array_m-1:0] psum_in_array [array_n-1:0];
 wire [2*data_width+log2_array_m-1:0] psum_out_array [array_n-1:0];
 wire [data_width-1:0] w_array [array_n-1:0];
-wire [data_width-1:0] x_array [array_n:0]; //x_array的元素个数比阵列的列数多1
+wire [data_width-1:0] x_array [array_n:0]; 
 
 assign x_array[0]=x;
 

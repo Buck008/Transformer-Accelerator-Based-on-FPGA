@@ -1,14 +1,13 @@
 `timescale 1ns / 1ps
 
-//array_m 和 array_n 现必须保持为一致
 module MM
 #(
-    parameter array_m = 6, //Array 行数
-    parameter array_n = 6, //Array 列数
-    parameter data_width = 8, //数据宽度
+    parameter array_m = 6, 
+    parameter array_n = 6, 
+    parameter data_width = 8, 
     // parameter shift_width = 20,
     parameter log2_array_m = 4,
-    localparam integer axis_data_width = array_m * data_width //axi stream 数据宽度
+    localparam integer axis_data_width = array_m * data_width 
 )
 (
     clk,
@@ -34,7 +33,7 @@ input wire                                                      rst_n;
 output wire                                                      set_w_port;
 
 // input wire [shift_width-1:0]                                    shift;
-input wire                                                      wdata_flag_up; //拉高wdata_flag
+input wire                                                      wdata_flag_up; 
 
 input wire [axis_data_width-1:0]                                MM_in_data;
 input wire                                                      MM_in_data_valid;
