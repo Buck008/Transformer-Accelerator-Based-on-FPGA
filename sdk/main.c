@@ -10,7 +10,7 @@
 #include "matrix.h"
 #include "defines.h"
 
-#define CAL_SOFT 0
+#define CAL_SOFT 1
 XTime t1,t2,t3,t4,t5,t6;
 
 int main()
@@ -21,13 +21,13 @@ for(a=0;a<times;a++){
 	printf("/*************************************************************/\n");
 	printf("Hello,%d\n",a);
 	u32 shift = 10;
-	u32 IN_ROWS_NUM = 240;
-	u32 IN_COLS_NUM = 240;
-	u32 OUT_COLS_NUM = 240;
+	u32 IN_ROWS_NUM = 160;
+	u32 IN_COLS_NUM = 160;
+	u32 OUT_COLS_NUM = 160;
 
 	u32 F_width_block_num = IN_COLS_NUM / A_SIZE;
 	u32 W_width_block_num = OUT_COLS_NUM /A_SIZE;
-	Xil_DCacheDisable();
+//	Xil_DCacheDisable();
 	int feature_in_size = IN_ROWS_NUM * IN_COLS_NUM;
 	int feature_out_size = IN_ROWS_NUM * OUT_COLS_NUM;
 	int weight_size = IN_COLS_NUM * OUT_COLS_NUM;
@@ -72,6 +72,10 @@ for(a=0;a<times;a++){
 		}
 	}
 
+	Xil_DCacheFlushRange(weight_buffer,weight_size);
+	Xil_DCacheFlushRange(feature_in_buffer,feature_in_size);
+	Xil_DCacheFlushRange(feature_out_buffer,feature_out_size);//make sure that the invalidate data will not cause data loss
+	Xil_DCacheInvalidateRange(feature_out_buffer,feature_out_size);
 	XTime_GetTime(&t3);
 	Xil_Out32(SHIFT_ADDR,shift);
 	Xil_Out32(FL_ADDR,IN_ROWS_NUM);
@@ -79,21 +83,21 @@ for(a=0;a<times;a++){
 	Xil_Out32(WWBN_ADDR,W_width_block_num);
 
 
-	//先打开接受通道
+	//first open receive channel
 	Xil_Out32(RESULT_S2MM_DMACR, 0x4);//reset
-	Xil_Out32(RESULT_S2MM_DA, (u32)feature_out_buffer);
-	Xil_Out32(RESULT_S2MM_DMACR, 0x1); 
-	Xil_Out32(RESULT_S2MM_LENGTH,feature_out_size); 
+	Xil_Out32(RESULT_S2MM_DA, (u32)feature_out_buffer); //set addr
+	Xil_Out32(RESULT_S2MM_DMACR, 0x1);  //open channel
+	Xil_Out32(RESULT_S2MM_LENGTH,feature_out_size); //set length
 
-	Xil_Out32(WEIGHT_MM2S_DMACR, 0x4);//reset
-	Xil_Out32(WEIGHT_MM2S_SA, (u32)weight_buffer); 
-	Xil_Out32(WEIGHT_MM2S_DMACR, 0x1);  
-	Xil_Out32(WEIGHT_MM2S_LENGTH,weight_size); 
+	Xil_Out32(WEIGHT_MM2S_DMACR, 0x4);
+	Xil_Out32(WEIGHT_MM2S_SA, (u32)weight_buffer);
+	Xil_Out32(WEIGHT_MM2S_DMACR, 0x1);
+	Xil_Out32(WEIGHT_MM2S_LENGTH,weight_size);
 
-	Xil_Out32(FEATURE_MM2S_DMACR, 0x4);//reset
-	Xil_Out32(FEATURE_MM2S_SA, (u32)feature_in_buffer); 
-	Xil_Out32(FEATURE_MM2S_DMACR, 0x1);  
-	Xil_Out32(FEATURE_MM2S_LENGTH,feature_in_size); 
+	Xil_Out32(FEATURE_MM2S_DMACR, 0x4);
+	Xil_Out32(FEATURE_MM2S_SA, (u32)feature_in_buffer);
+	Xil_Out32(FEATURE_MM2S_DMACR, 0x1);
+	Xil_Out32(FEATURE_MM2S_LENGTH,feature_in_size);
 
 
 	while((Xil_In32(RESULT_S2MM_DMASR) & XAXIDMA_IDLE_MASK) ? FALSE : TRUE){
@@ -111,7 +115,6 @@ for(a=0;a<times;a++){
 
 	float T_allocBuffer = (float)(t2-t1)*(1000000 / COUNTS_PER_SECOND);
 	float T_hard = (float)(t4-t3)*1000000 / COUNTS_PER_SECOND;
-//	float T_reshapeBuffer = (float)(t5-t4)*1000000 / COUNTS_PER_SECOND;
 #if CAL_SOFT
 	float T_soft = (float)(t6-t5)*1000000 / COUNTS_PER_SECOND;
 #endif
@@ -131,10 +134,11 @@ for(a=0;a<times;a++){
 		}
 	}
 #endif
-	printf("Time consumed for allocating memory: %.2fus\n",T_allocBuffer);
-	printf("Time consumed in PL cal: %.2fus\n",T_hard);
+	printf("Time spent on memory allocation:%.2fus\n",T_allocBuffer);
+
+	printf("Time spent on hardware calculation:%.2fus\n",T_hard);
 #if CAL_SOFT
-	printf("Time consumed in PS cal: %.2fus\n",T_soft);
+	printf("Time spent on software calculation：%.2fus\n",T_soft);
 #endif
 	free(weight_buffer);
 	free(feature_in_buffer);
