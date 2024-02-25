@@ -3,7 +3,7 @@ You can run it on pynq z1 (or any other Zynq device, since the systolic array is
 In the future, I might add some nonlinear hardware acceleration operators (for accelerating ViT, it's a kind of neural network based on Transformer), such as those that compute Softmax, Gelu and LayerNorm functions. I am still working on to improve the accuracy and performance of this part.
 
 How to reproduce this project: 
-1. In vivado2019.1, create a new project (note that the boardfile is pynq z1, you can download the corresponding boardfile here: https://github.com/Digilent/vivado-boards ).
+1. In vivado2019.1, create a new project (note that the boardfile is pynq z1, you can download the corresponding boardfile here: https://pynq.readthedocs.io/en/v3.0.0/overlay_design_methodology/board_settings.html ).
 2. Add all the code to the project
 3. Run prj.tcl
 4. Create a wrapper for the block design and set it as the top module.
